@@ -1,0 +1,86 @@
+Goal:
+Build a production-ready "FRA Atlas" web application using React + TypeScript + Tailwind (frontend) and Node.js + Express + Python microservice (backend) with PostgreSQL database.
+
+Core Features:
+
+OCR + NLP Microservice (Python)
+
+Use EasyOCR/TrOCR for printed + handwritten text extraction.
+
+Use spaCy for entity recognition (village name, claimant name, claim ID, area).
+
+Return structured JSON with confidence scores.
+
+File Upload & Review (Frontend)
+
+Upload PDF/image → send to backend → call Python OCR → display extracted text.
+
+Show confidence scores and allow manual corrections in a modal before saving.
+
+Interactive Map (React-Leaflet)
+
+Base layers: OpenStreetMap, Esri World Imagery, Google Hybrid (with layer switcher).
+
+Display claim boundaries and markers from database (GeoJSON).
+
+Allow users to draw new boundaries (polygon/rectangle) using Leaflet Draw.
+
+Export drawn shapes as GeoJSON and save to backend.
+
+Show popup on click with claimant details.
+
+Dashboard & Analytics
+
+Show number of claims processed, total land area, status breakdown.
+
+Filters for state/district/village.
+
+Charts built with Recharts or Chart.js.
+
+Backend API (Node + Express)
+
+/upload → handle file uploads and call Python OCR service.
+
+/claims → CRUD endpoints for claims (with boundary GeoJSON).
+
+/map → return GeoJSON of claims and assets for selected village.
+
+Database (PostgreSQL + Prisma)
+
+Store claim data: claimant name, village, area, OCR confidence, boundary geometry, status.
+
+Store metadata for assets (forest cover, water bodies, homesteads).
+
+Tech Requirements:
+
+Use TypeScript for type safety.
+
+Use React-Leaflet + Leaflet Draw for map visualization & editing.
+
+Use Tailwind CSS for styling (cards, buttons, modals, responsive layout).
+
+Containerize Node backend + Python OCR service using Docker Compose.
+
+Write modular, well-commented code with clear folder structure.
+
+Deliverables:
+
+React frontend (Vite or Next.js).
+
+Node.js backend with Express routes.
+
+Python microservice for OCR/NLP.
+
+Database schema & Prisma migrations.
+
+Example seed data + village boundary GeoJSON for testing.
+
+README with setup guide (npm run dev, docker compose up).
+
+Extra:
+
+Provide code comments explaining each function/component.
+
+Provide example screenshots or placeholders for UI so that team can expand easily.
+
+Ensure it runs locally with minimal setup.
