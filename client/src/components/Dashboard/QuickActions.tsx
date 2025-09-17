@@ -69,8 +69,13 @@ export function QuickActions() {
 
             if (action.href && action.href !== "#") {
               return (
-                <Link key={index} href={action.href}>
-                  <a className="block">{ActionButton}</a>
+                <Link key={index} href={action.href} className="block">
+                  <div className="flex flex-col items-center p-4 h-auto border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md cursor-pointer transition-colors">
+                    <Icon className={`h-6 w-6 ${action.color} mb-2`} />
+                    <span className="text-sm font-medium text-foreground">
+                      {action.title}
+                    </span>
+                  </div>
                 </Link>
               );
             }
