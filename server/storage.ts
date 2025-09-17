@@ -68,7 +68,7 @@ export class DatabaseStorage implements IStorage {
       .limit(limit);
 
     const claimsWithFiles = await Promise.all(
-      claimsList.map(async (claim) => {
+      claimsList.map(async (claim: Claim) => {
         const files = await db
           .select()
           .from(uploadedFiles)
