@@ -1,0 +1,103 @@
+✅ Printed + Handwritten OCR (EasyOCR/TrOCR).
+
+✅ NLP Entity Extraction → auto-detect claimant name, village name, land area, claim ID.
+
+✅ Confidence Scores → highlight low-confidence text for manual review.
+
+✅ Manual Edit Modal → user can fix data before saving.
+
+✅ Batch Upload Support → process multiple PDFs at once.
+
+2️⃣ Interactive Map (WebGIS)
+
+✅ Multiple Base Layers: OpenStreetMap, Esri Satellite, Google Hybrid.
+
+✅ Village Boundaries: Load GeoJSON and zoom to village.
+
+✅ Claim Boundaries:
+
+Draw polygon/rectangle with Leaflet Draw.
+
+Edit or delete existing boundaries.
+
+Save to DB as GeoJSON.
+
+✅ Popups: Show claimant details, claim area, status.
+
+✅ Clustered Markers: Group nearby claims for better visualization.
+
+✅ Filters: By state/district/village/tribal group/claim status.
+
+✅ Search Bar: Search by claimant name or claim ID.
+
+✅ Legends & Layer Control: Professional map UI.
+
+3️⃣ Dashboard & Analytics
+
+✅ Key Metrics:
+
+Total claims, total land area, approved vs pending.
+
+Number of claims per village/district.
+
+✅ Charts & Graphs:
+
+Pie chart for status breakdown.
+
+Bar chart for claims by village/district.
+
+Trend line chart for claims over time.
+
+✅ Download Reports: Export as CSV, Excel, PDF.
+
+✅ Progress Tracking: Show percentage of FRA completion for each block/district.
+
+4️⃣ AI-Based Asset Mapping
+
+✅ Computer Vision: Detect agricultural land, forest cover, water bodies, homesteads from satellite imagery (using pre-trained CNN or segmentation model).
+
+✅ AI-Generated Asset Layer: Overlay results on map with separate toggles.
+
+✅ Groundwater & Soil Data Integration: Show potential sites for borewells, soil health indicators.
+
+✅ Infrastructure Overlay: Roads, schools, health centers (PM Gati Shakti data).
+
+5️⃣ Decision Support System (DSS)
+
+✅ Rule Engine: Suggests eligible schemes (e.g., Jal Shakti, DAJGUA) based on claim data.
+
+✅ Priority Index: Highlight villages with low water index or poor forest cover for targeted intervention.
+
+✅ What-If Analysis: Allow user to simulate approval/rejection and see impact on metrics.
+
+6️⃣ User Experience (UX)
+
+✅ Role-Based Login: Admin, Data Entry, District Officer, Viewer.
+
+✅ Mobile-Friendly UI: Tailwind responsive design, works on tablets.
+
+✅ Offline Mode: Cache maps & data locally for field teams.
+
+✅ Dark Mode: Optional but looks modern.
+
+✅ Notifications/Alerts: Show OCR errors, processing complete, claim approved.
+
+7️⃣ Technical Quality
+
+✅ TypeScript Everywhere: Type safety across frontend & backend.
+
+✅ Clean API Design: RESTful endpoints with proper error handling.
+
+✅ Database Schema: Well-structured with Prisma migrations.
+
+✅ Dockerized Deployment: Single docker-compose up spins up backend + Python OCR.
+
+✅ Logging & Monitoring: Simple log system for debugging during demo.
+
+8️⃣ Data Management
+
+✅ Digital Archive: Store uploaded PDFs/images with link to claim data.
+
+✅ Version Control: Keep history of edits to claim data.
+
+✅ Audit Trail: Who edited what & when (for transparency).
