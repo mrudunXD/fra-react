@@ -2,7 +2,7 @@ import { Header } from "@/components/Layout/Header";
 import { StatsGrid } from "@/components/Dashboard/StatsGrid";
 import { QuickActions } from "@/components/Dashboard/QuickActions";
 import { FileUpload } from "@/components/FileUpload/FileUpload";
-import { MapComponent } from "@/components/Map/MapComponent";
+import { EnhancedMapComponent } from "@/components/Map/EnhancedMapComponent";
 import { ClaimsTable } from "@/components/Claims/ClaimsTable";
 
 export default function Dashboard() {
@@ -22,7 +22,7 @@ export default function Dashboard() {
         </div>
 
         <div className="mb-8">
-          <MapComponent height="500px" />
+          <EnhancedMapComponent height="500px" />
         </div>
 
         <ClaimsTable limit={10} />

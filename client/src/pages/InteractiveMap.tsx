@@ -1,5 +1,5 @@
 import { Header } from "@/components/Layout/Header";
-import { MapComponent } from "@/components/Map/MapComponent";
+import { EnhancedMapComponent } from "@/components/Map/EnhancedMapComponent";
 
 export default function InteractiveMap() {
   return (
@@ -10,7 +10,7 @@ export default function InteractiveMap() {
       />
       
       <main className="p-6">
-        <MapComponent height="calc(100vh - 200px)" interactive />
+        <EnhancedMapComponent height="calc(100vh - 200px)" interactive />
       </main>
     </div>
   );
