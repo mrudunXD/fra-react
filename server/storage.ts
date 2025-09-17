@@ -159,4 +159,85 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+// In-memory fallback storage for environments without a configured database
+class MemoryStorage implements IStorage {
+  private users: User[] = [];
+  private claimsData: ClaimWithFiles[] = [];
+  private filesData: UploadedFile[] = [];
+
+  async getUser(id: string): Promise<User | undefined> {
+    return this.users.find(u => u.id === id);
+  }
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    return this.users.find(u => u.username === username);
+  }
+  async createUser(user: InsertUser): Promise<User> {
+    const created: User = { id: crypto.randomUUID(), createdAt: new Date(), ...user } as any;
+    this.users.push(created);
+    return created;
+  }
+
+  async getClaim(id: string): Promise<ClaimWithFiles | undefined> {
+    return this.claimsData.find(c => c.id === id);
+  }
+  async getClaimByClaimId(claimId: string): Promise<Claim | undefined> {
+    return this.claimsData.find(c => c.claimId === claimId) as any;
+  }
+  async getClaims(limit = 50): Promise<ClaimWithFiles[]> {
+    return this.claimsData.slice(0, limit);
+  }
+  async createClaim(claim: InsertClaim): Promise<Claim> {
+    const created: any = {
+      id: crypto.randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      status: 'pending',
+      ...claim,
+    };
+    this.claimsData.unshift({ ...created, files: [] });
+    return created;
+  }
+  async updateClaim(id: string, updates: Partial<InsertClaim>): Promise<Claim> {
+    const idx = this.claimsData.findIndex(c => c.id === id);
+    if (idx === -1) throw new Error('Claim not found');
+    const current = this.claimsData[idx];
+    const updated: any = { ...current, ...updates, updatedAt: new Date() };
+    this.claimsData[idx] = { ...updated, files: current.files };
+    return updated;
+  }
+  async deleteClaim(id: string): Promise<boolean> {
+    const before = this.claimsData.length;
+    this.claimsData = this.claimsData.filter(c => c.id !== id);
+    this.filesData = this.filesData.filter(f => f.claimId !== id);
+    return this.claimsData.length < before;
+  }
+
+  async getFile(id: string): Promise<UploadedFile | undefined> {
+    return this.filesData.find(f => f.id === id);
+  }
+  async getFilesByClaimId(claimId: string): Promise<UploadedFile[]> {
+    return this.filesData.filter(f => f.claimId === claimId);
+  }
+  async createFile(file: InsertFile): Promise<UploadedFile> {
+    const created: UploadedFile = { id: crypto.randomUUID(), createdAt: new Date(), ...file } as any;
+    this.filesData.push(created);
+    return created;
+  }
+  async updateFileStatus(id: string, status: "uploaded" | "processing" | "processed" | "failed"): Promise<UploadedFile> {
+    const file = this.filesData.find(f => f.id === id);
+    if (!file) throw new Error('File not found');
+    (file as any).status = status;
+    return file;
+  }
+
+  async getDashboardStats(): Promise<DashboardStats> {
+    const totalClaims = this.claimsData.length as any;
+    const processed = this.claimsData.filter(c => c.status === 'approved').length as any;
+    const totalArea = this.claimsData.reduce((acc, c) => acc + (Number(c.area) || 0), 0);
+    const pending = this.claimsData.filter(c => c.status === 'pending').length as any;
+    return { totalClaims, processed, totalArea, pending } as any;
+  }
+}
+
+const usingDb = !!process.env.DATABASE_URL;
+export const storage: IStorage = usingDb ? new DatabaseStorage() : new MemoryStorage();
